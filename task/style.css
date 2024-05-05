@@ -1,0 +1,71 @@
+body {
+    background-image: url('https://raw.githubusercontent.com/berru-g/web3.0/19e7dcebca5c02f714b41b53f429fcb7952f862e/src/img/generative-art-project-name-845.svg');
+   font-family: sans-serif;
+ }
+ #task-manager {
+   max-width: 400px;
+   margin: 0 auto;
+   padding: 10px;
+   background-color: transparent;
+   
+ }
+ 
+ #task-manager h2 {
+   text-align: center;
+   color: white;
+ }
+ 
+ #task-input {
+   width: 100%;
+   padding: 10px;
+   margin-bottom: 10px;
+ }
+ p {
+   text-align: center;
+ }
+ #time-input {
+   width: 100%;
+   padding: 10px;
+   margin-bottom: 10px;
+ }
+ 
+ #add-task-btn {
+   width: 100%;
+   padding: 10px;
+   background-color: white;
+   color: #4caf50;
+   border: none;
+   cursor: pointer;
+   margin: auto;
+ }
+ 
+ #task-list {
+   list-style: none;
+   padding: 0;
+ }
+ 
+ .task-item {
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   padding: 10px;
+   background-color: #fff;
+   margin-bottom: 5px;
+ }
+ 
+ .task-item .task-text {
+   flex-grow: 1;
+ }
+ 
+ .task-item .delete-btn {
+   background-color: #f44336;
+   color: white;
+   border: none;
+   padding: 5px 10px;
+   cursor: pointer;
+ }
+ 
+ .task-item.expired .task-text {
+   color: red;
+ }
+ 

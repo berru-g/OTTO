@@ -42,7 +42,7 @@ def print_tasks():
         
 def record_tasks():
     try:
-        with open("tasks.txt", "a") as file:
+        with open("tasks.txt", "w") as file:
             for task_info in tasks:
                 task_status = "done" if task_info["done"] else "not done"
                 file.write(f"{task_info['task']} ({task_status})\n")
