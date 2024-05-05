@@ -1,0 +1,8 @@
+[autorun]
+open=pythonw.exe menu.py
+shell\Bureau="Ouvrir Gmail et Calendar"
+shell\Bureau\command=pythonw.exe menu.py gmail_calendar
+shell\Code="Ouvrir VSCode et GitHub"
+shell\Code\command=pythonw.exe menu.py vscode_github
+shell\Chill="Ouvrir YouTube"
+shell\Chill\command=pythonw.exe menu.py youtube

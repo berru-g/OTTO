@@ -1,0 +1,134 @@
+@import url("https://fonts.googleapis.com/css?family=Inconsolata:400,400i,700");
+body {
+      margin: 0;
+      font-family: 'Incosolata', sans-serif;
+      background-color: #f8f8f8;
+  background-image: url('data:image/svg+xml,%3Csvg width="52" height="26" viewBox="0 0 52 26" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%239C92AC" fill-opacity="0.4"%3E%3Cpath d="M10 10c0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6h2c0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4 3.314 0 6 2.686 6 6 0 2.21 1.79 4 4 4v2c-3.314 0-6-2.686-6-6 0-2.21-1.79-4-4-4-3.314 0-6-2.686-6-6zm25.464-1.95l8.486 8.486-1.414 1.414-8.486-8.486 1.414-1.414z" /%3E%3C/g%3E%3C/g%3E%3C/svg%3E');
+    }
+
+    .header {
+      background-color: #007bff;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    
+    .logo {
+      font-size: 88px;
+      position: absolute;
+      top: 15%;
+      left: 50%;
+      opacity:0.4;
+      transform-style: preserve-3d;
+      animation: rotate 6s linear infinite;
+    }
+@keyframes rotate {
+  0% {
+    transform: translate(-50%, -50%) perspective(500px) rotateY(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) perspective(500px) rotateY(360deg);
+  }
+}
+h1 {
+  color: grayscale;
+  top: 14%;
+  animation-name: bounce-in-top;
+  animation-duration: 2s;
+}
+@keyframes bounce-in-top {
+  from {
+    transform: translateY(-150px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+p {
+  animation-name: up;
+  animation-duration: 2s;
+}
+@keyframes up {
+  from {
+    transform: translateY(150%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+#price {
+  margin-top: 40px;
+}
+    .main-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .about {
+      text-align: left;
+      margin-top: 20px;
+    }
+
+    .about p {
+      color: #555;
+    }
+    /* Styles pour les labels */
+label {
+    display: center;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* Styles pour les champs de texte */
+input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+/* Style pour le bouton */
+input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Style pour les sauts de ligne (br) */
+br {
+    margin: 10px 0;
+}
+
+    .cta-button {
+      display: block;
+      background-color: #007bff;
+      color: white;
+      padding: 10px 20px;
+      margin-top: 20px;
+      border-radius: 5px;
+      text-decoration: none;
+    }
+
+    .cta-button:hover {
+      background-color: #0056b3;
+    }
+footer {
+    color: #333;
+    text-align: center;
+    padding: 10px 0;
+}
+a {
+  color: grey;
+  text-decoration: none;
+}
+a:hover{color:#007bff;}

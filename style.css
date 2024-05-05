@@ -1,0 +1,64 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:400,400i,700");
+body {
+  margin: 0;
+  display: block;
+  text-align: center;
+  background-color: #80808080;
+  color: #1a1a1a;
+  font-family: Montserrat;
+  padding: 20px 40px;
+}
+h1 {
+  animation-name: bounce-in-top;
+  animation-duration: 2s;
+}
+@keyframes bounce-in-top {
+  from {
+    transform: translateY(-150px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+h3 {
+  animation-name: up;
+  animation-duration: 2s;
+}
+@keyframes up {
+  from {
+    transform: translateY(150%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+h3, p {color: grey;}
+.plan {
+  margin-top: 7%;
+  margin-bottom: 7%;
+  width: 80%;
+}
+.code {
+  background-color: transparent;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  margin-top: 20px;
+  padding: 10px;
+  margin-bottom: 20px;
+  color: #616161;
+  overflow-x: scroll;
+}
+a{color:white;text-decoration:none;}
+.git {
+  margin: 0;
+  padding: 10px 10px;
+  border-radius: 8px;
+  color:white;
+  text-decoration:none;
+  border: solid 1px #fff;
+}
+.git:hover {
+  background-color: #808080;
+}
