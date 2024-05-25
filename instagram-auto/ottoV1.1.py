@@ -47,10 +47,10 @@ sleep(1)
 
 element = driver.find_element(By.NAME, "username")
 pyautogui.click()
-pyautogui.typewrite("g.leberruyer@gmail.com") # typewrite(r.content)
+pyautogui.typewrite("wam@gmail.com") # typewrite(r.content)
 pyautogui.typewrite(["enter"])
 element = driver.find_element(By.NAME, "password")
-pyautogui.typewrite("BlancheEly")
+pyautogui.typewrite("mdp")
 pyautogui.typewrite(["enter"])
 sleep(4)
 #################################
