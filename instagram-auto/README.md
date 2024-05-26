@@ -1,10 +1,10 @@
-﻿# changer vos log dans le vbs
+﻿# 1 changer vos log dans le vbs
 
-# Entrer le vbs dans le planificateur
-        lancement de la page + login
+# 2 Entrer le vbs dans le planificateur à l'heure voulu
+        lancement de preset-otto24.vbs
         lancement de otto.py
 
-## scroll et like auto
+# Start = open page + login + scroll + like auto
 
 ### install
         cv2
