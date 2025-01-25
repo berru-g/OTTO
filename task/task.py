@@ -2,7 +2,7 @@ import os
 import time
 from pyfiglet import Figlet
 import winsound
-
+#from termcolor import colored
 GREEN = '\033[92m'
 PURPLE = '\033[95m'
 RESET = '\033[0m'
@@ -26,7 +26,7 @@ BLANC_BRILLANT = '\033[97m'
 f = Figlet(font='slant')
 print (f.renderText('private task'))
 print ('Welcome to the task tool, no ads, no data, just task & you without tracking time.')
-print(CLAIR_NOIR + '###################### more tool in github/berru-g ##############################' + RESET)
+#print(CLAIR_NOIR + '###################### more tool in github/berru-g ##############################' + RESET)
 print(JAUNE + "Write add and your task & list for looking list & valid or write done & number task." + RESET)
 print(CYAN + "add - list - clear - done - record - old-list - quit" + RESET)
 
@@ -42,7 +42,7 @@ def print_tasks():
         
 def record_tasks():
     try:
-        with open("tasks.txt", "w") as file:
+        with open("tasks.json", "w") as file:
             for task_info in tasks:
                 task_status = "done" if task_info["done"] else "not done"
                 file.write(f"{task_info['task']} ({task_status})\n")
@@ -50,11 +50,11 @@ def record_tasks():
     except Exception as e:
         print(ROUGE + f"Une erreur s'est produite lors de l'enregistrement des tâches : {e}" + RESET)
 
-    
+
 
 def old_list():
     try:
-        with open("tasks.txt", "r") as file:
+        with open("tasks.json", "r") as file:
             lines = file.readlines()
             tasks.clear()
             for line in lines:
@@ -65,6 +65,7 @@ def old_list():
         print(JAUNE + "Liste des tâches chargée depuis tasks.txt" + RESET)
     except Exception as e:
         print(ROUGE + f"Fichier tasks.txt introuvable. {e}" + RESET)
+        
 
 while True:
     user_input = input(": ")
@@ -100,6 +101,7 @@ while True:
         print(JAUNE + "    +-- make@1.0.1" + RESET)
         time.sleep(0.1)
         print(JAUNE + "     -- play@1.2.3" + RESET)
+    #elif # open E:\2023\instagram-auto\preset24.bat
     else:
         print(ROUGE + "Non valide" + RESET)
         winsound.Beep(200, 200)
