@@ -24,7 +24,7 @@ CLAIR_CYAN = '\033[96m'
 BLANC_BRILLANT = '\033[97m'
 
 f = Figlet(font='slant')
-print (f.renderText('private task'))
+print (f.renderText('Privatask'))
 print ('Welcome to the task tool, no ads, no data, just task & you without tracking time.')
 #print(CLAIR_NOIR + '###################### more tool in github/berru-g ##############################' + RESET)
 print(JAUNE + "Write add and your task & list for looking list & valid or write done & number task." + RESET)
@@ -44,7 +44,7 @@ def record_tasks():
     try:
         with open("tasks.json", "w") as file:
             for task_info in tasks:
-                task_status = "done" if task_info["done"] else "not done"
+                task_status = "done" if task_info["done"] else "not"
                 file.write(f"{task_info['task']} ({task_status})\n")
         print(JAUNE + "Liste des tâches enregistrée dans tasks.txt" + RESET)
     except Exception as e:
@@ -101,7 +101,6 @@ while True:
         print(JAUNE + "    +-- make@1.0.1" + RESET)
         time.sleep(0.1)
         print(JAUNE + "     -- play@1.2.3" + RESET)
-    #elif # open E:\2023\instagram-auto\preset24.bat
     else:
         print(ROUGE + "Non valide" + RESET)
         winsound.Beep(200, 200)
