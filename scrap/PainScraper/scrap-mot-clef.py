@@ -30,16 +30,17 @@ def search_reddit_api(niche, subreddit="web_design", limit=10):
         return []
 
 def reddit_pain_scraper():
-    f = Figlet(font='slant')
-    print(f.renderText('Pain Scraper'))
-    g = Figlet(font='small')
-    print(g.renderText('Reddit/IndieHackers'))
+    f = Figlet(font='isometric3')
+    print(f.renderText('Pain'))
+    g = Figlet(font='digital')
+    print(g.renderText('Scraper'))
     
     print(Fore.LIGHTBLUE_EX + "Reddit r/frontend")
     print(Fore.LIGHTGREEN_EX + "Reddit r/web_design") 
     print(Fore.LIGHTYELLOW_EX + "Reddit r/threejs")
     print(Fore.LIGHTMAGENTA_EX + "Reddit r/graphic_design")
     print(Fore.LIGHTWHITE_EX + "Changer les subreddit dans le code si besoin")
+    
 
     # Liste de mots-clés détectant des problèmes - Version design/tech
     pain_keywords = [
@@ -191,7 +192,7 @@ def reddit_pain_scraper():
                     posts = (
                         site_soup.select("h3._eYtD2XCVieq6emjKBH3m") or  # Nouveau sélecteur
                         site_soup.select("a[data-click-id='body']") or    # Ancien sélecteur
-                        site_soup.select("a.title") or                    # Très ancien
+                        site_soup.select("a.itlet") or                    # Très ancien
                         site_soup.select("shreddit-post") or              # Très récent
                         site_soup.find_all('h3') or                       # Fallback large
                         []
@@ -276,7 +277,7 @@ def reddit_pain_scraper():
 
         # Analyse agrégée
         if all_problems:
-            print(Fore.MAGENTA + "\n" + "═" * 60)
+            print(Fore.WHITE + "\n" + "═" * 60)
             print("📊 ANALYSE FINALE DES DOULEURS")
             print("═" * 60)
             
@@ -320,7 +321,7 @@ def reddit_pain_scraper():
             print("   • Vérifiez votre connexion internet")
             print("   • Les subreddits peuvent être trop spécifiques")
 
-        print(Fore.CYAN + "\n" + "?" * 50)
+        print(Fore.CYAN + "\n" + "_" * 50)
         user_input = input("Nouvelle recherche ? (Oui/Non): ")
         if user_input.lower() != 'oui':
             print("👋 Bonne chance pour trouver les prochaines idées!")
