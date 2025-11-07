@@ -24,7 +24,7 @@ print("Début du programme.")
 while True:
     print("--- Nouvelle boucle ---")
 
-    # Répète 3 sessions de clics
+    # Répète 6 sessions de clics
     for session in range(6):
         print(f"--- Début de la session {session + 1} ---")
         
