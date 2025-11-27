@@ -9,8 +9,8 @@ from datetime import datetime
 
 # Configuration de la page
 st.set_page_config(
-    page_title="🔍 Pain Scraper - Reddit",
-    page_icon="🔴",
+    page_title="Pain Scraper - Reddit",
+    page_icon="💎",
     layout="wide",
     initial_sidebar_state="expanded"
 )

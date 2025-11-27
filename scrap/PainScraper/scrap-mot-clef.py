@@ -39,7 +39,7 @@ def reddit_pain_scraper():
     print(Fore.LIGHTGREEN_EX + "Reddit r/web_design") 
     print(Fore.LIGHTYELLOW_EX + "Reddit r/threejs")
     print(Fore.LIGHTMAGENTA_EX + "Reddit r/graphic_design")
-    print(Fore.LIGHTWHITE_EX + "Changer les subreddit dans le code si besoin")
+    print(Fore.LIGHTWHITE_EX + "Extrayez les problèmes de vos niches pour générer des idées SaaS" + Style.RESET_ALL)
     
 
     # Liste de mots-clés détectant des problèmes - Version design/tech
