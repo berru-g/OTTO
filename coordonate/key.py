@@ -1,8 +1,10 @@
 # key.py - Un keylogger simple utilisant pynput
 # Enregistre les frappes dans un fichier journal quotidien
 #, et s'arrête lorsque le mot-clé "STOPLOG" est détecté
-# Caution: use for you only and respect privacy laws.
-# src=https://blog.crea-troyes.fr/5753/coder-un-keylogger-en-python-guide-complet/#aioseo-preparer-son-environnement
+
+# DANGER : ceci est un exercice éducatif. N'utilisez ce code qu'avec l'autorisation explicite des propriétaires des systèmes ciblés.
+
+# Tuto src=https://blog.crea-troyes.fr/5753/coder-un-keylogger-en-python-guide-complet/#aioseo-preparer-son-environnement
 from pynput.keyboard import Listener, Key
 import logging
 from datetime import datetime
