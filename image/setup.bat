@@ -26,7 +26,7 @@ print('✅ upload.php créé')
 REM 3. Modifie le script Python avec TES infos
 echo.
 echo MODIFIE dans logo.py :
-echo 1. HOST_URL = 'https://crypto-free-tools.netlify.app/image/'
+echo 1. HOST_URL = 'https://ton-site/image/'
 echo 2. SECRET_KEY = 'TON_SECRET'
 echo.
 pause
