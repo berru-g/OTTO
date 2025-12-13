@@ -35,6 +35,8 @@ import ssl
 import http.client
 import urllib.request
 import urllib.error
+#import win32service
+#import win32con
 
 warnings.filterwarnings('ignore')
 
