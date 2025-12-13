@@ -1,0 +1,9 @@
+scan-proc
+scan-net⌫⌫⌫all
+nes⌫⌫⌫⌫tasklist
+taskkill prevention⇧.exe
+taskill ⇧/prevention⇧.exe
+taskkill ⇧/prevention⇧.exe
+taskkill ⇧/?
+taskkill ⇧/f ⇧/prevention⇧.exe
+[up][left][left][left][left][left][left][left][left][left][left][left][left][left][left][left][left][left][left][left][right][right][right]⌫⇧F[end]
