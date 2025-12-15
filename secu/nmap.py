@@ -495,7 +495,7 @@ class NetworkScanner:
                     'risk': 'HIGH',
                     'description': 'Port SMB ouvert - risque d\'exploitation (EternalBlue, WannaCry)',
                     #'recommendation': 'Mettre à jour Windows ou désactiver SMBv1',
-                    'recommendation': 'Dans votre Powershell fermez le port : New-NetFirewallRule -DisplayName "SECU-BLOCK-SMB-445-IN" -Direction Inbound -Protocol TCP -LocalPort 445 -Action Block -RemoteAddress 192.168.1.0/24 -Profile Any'
+                    'recommendation': 'Dans votre Powershell fermez le port : New-NetFirewallRule -DisplayName "SECU-BLOCK-SMB-445-IN" -Direction Inbound -Protocol TCP -LocalPort 445 -Action Block -RemoteAddress 192.168.100.0/24 -Profile Any'
                 })
             
             elif port == 23:
@@ -1414,7 +1414,7 @@ class SystemScanner:
             self.network_scanner.vulnerability_scan(target)
         elif choice == '4':
             if '/' not in target:
-                target = input(f"Réseau CIDR (ex: 192.168.1.0/24): ").strip()
+                target = input(f"Réseau CIDR (ex: 192.168.100.0/24): ").strip()
             self.network_scanner.network_scan(target)
         elif choice == '5':
             port = input(f"Port à analyser: ").strip()
@@ -1610,7 +1610,7 @@ def main():
                 if network:
                     scanner.network_scanner.network_scan(network)
                 else:
-                    print(f"{Colors.YELLOW}Usage: netscan RESEAU_CIDR (ex: 192.168.1.0/24){Colors.END}")
+                    print(f"{Colors.YELLOW}Usage: netscan RESEAU_CIDR (ex: 192.168.100.0/24){Colors.END}")
             
             elif choice.startswith('vulnscan '):
                 target = choice.split(' ', 1)[1] if len(choice.split()) > 1 else None
@@ -1681,7 +1681,7 @@ def main():
 {Colors.BOLD}🎯 SCAN RÉSEAU (NMAP-LIKE):{Colors.END}
   {Colors.GREEN}portscan HOST{Colors.END} : Scan rapide ports communs
   {Colors.GREEN}fullscan HOST{Colors.END} : Scan complet ports 1-1024
-  {Colors.GREEN}netscan CIDR{Colors.END}  : Scan réseau entier (ex: 192.168.1.0/24)
+  {Colors.GREEN}netscan CIDR{Colors.END}  : Scan réseau entier (ex: 192.168.100.0/24)
   {Colors.GREEN}vulnscan HOST{Colors.END} : Scan vulnérabilités basiques
   {Colors.GREEN}service HOST PORT{Colors.END} : Analyse détaillée service
   {Colors.GREEN}nmap{Colors.END}          : Menu interactif scan réseau
@@ -1697,8 +1697,8 @@ def main():
   proc                        # Liste processus
   find chrome                 # Recherche Chrome
   kill malware.exe            # Tuer malware
-  portscan 192.168.1.1       # Scan réseau
-  netscan 192.168.1.0/24     # Scan réseau entier
+  portscan 192.168.100.1       # Scan réseau
+  netscan 192.168.100.0/24     # Scan réseau entier
   service google.com 80      # Analyse web
 """)
             

@@ -66,7 +66,7 @@
 *Équivalent à :* `nmap -sS -p 1-1024 HOST`  
 *Évite de faire :* Scanner chaque port un par un, récupérer les bannières
 
-**Cmd `netscan [CIDR]`** - Scan de tout un réseau (ex: 192.168.1.0/24)  
+**Cmd `netscan [CIDR]`** - Scan de tout un réseau (ex: 192.168.100.0/24)  
 *Équivalent à :* `nmap -sn CIDR` + scan des hôtes actifs  
 *Évite de faire :* Pinger manuellement chaque adresse IP du réseau
 
@@ -124,7 +124,7 @@
 3. **Problème réseau** : `net` → voir connexions suspectes → `portscan [IP]`
 4. **Disque plein** : `disk` → voir espace utilisé → analyser fichiers temp
 5. **Scan préventif** : `scan-all` → revue complète système
-6. **Investigation réseau** : `netscan 192.168.1.0/24` → cartographie réseau
+6. **Investigation réseau** : `netscan 192.168.100.0/24` → cartographie réseau
 7. **Audit web** : `service site.com 80` → analyse sécurité HTTP
 8. **Reporting** : `log` → exporter résultats pour ticket helpdesk
 
@@ -190,7 +190,7 @@ if result == 0:  # Si connexion réussie
 - Si la connexion réussit → Port **OUVERT**
 - Si échec/timeout → Port **FERMÉ** ou **FILTRÉ**
 
-**Exemple avec `portscan 192.168.1.1` :**
+**Exemple avec `portscan 192.168.100.1` :**
 ```
 ✅ Port 22 (SSH) OPEN
 ✅ Port 80 (HTTP) OPEN  
@@ -206,8 +206,8 @@ result = subprocess.run(command, timeout=2)
 return result.returncode == 0  # True si ping répond
 ```
 
-**Pour `netscan 192.168.1.0/24` :**
-- Ping chaque adresse de 192.168.1.1 à 192.168.1.254
+**Pour `netscan 192.168.100.0/24` :**
+- Ping chaque adresse de 192.168.100.1 à 192.168.1.254
 - Affiche seulement les IP qui répondent
 - Puis scan les ports sur les hôtes actifs
 
@@ -246,7 +246,7 @@ if 'X-Frame-Options' not in headers:
 
 ### **Test 1 : Scan ton propre routeur**
 ```
-helpdesk> portscan 192.168.1.1
+helpdesk> portscan 192.168.100.1
 ```
 Tu verras les ports ouverts de ta box (80 pour l'interface web, 443, etc.)
 
@@ -258,7 +258,7 @@ Tu verras : Port 443 (HTTPS) OPEN, peut-être 80 (HTTP redirect)
 
 ### **Test 3 : Scan ton réseau local**
 ```
-helpdesk> netscan 192.168.1.0/24
+helpdesk> netscan 192.168.100.0/24
 ```
 Tu découvriras toutes les machines sur ton réseau !
 
@@ -314,16 +314,16 @@ Tu auras les infos SSL, les headers de sécurité, etc.
 ## **EXEMPLE DE SESSION RÉELLE**
 
 ```
-helpdesk> netscan 192.168.1.0/24
-🌐 Scan du réseau: 192.168.1.0/24
-Plage: 192.168.1.1 - 192.168.1.254
+helpdesk> netscan 192.168.100.0/24
+🌐 Scan du réseau: 192.168.100.0/24
+Plage: 192.168.100.1 - 192.168.1.254
 Hôtes à scanner: 254
 
 ⏳ Recherche d'hôtes actifs...
-✓ 192.168.1.1    (Routeur - Box SFR)
+✓ 192.168.100.1    (Routeur - Box SFR)
 ✓ 192.168.1.25   (PC Thomas - Windows)
 ✓ 192.168.1.50   (NAS Synology)
-✓ 192.168.1.100  (Serveur Dev)
+✓ 192.168.100.100  (Serveur Dev)
 
 🔍 Analyse des hôtes actifs:
   Hôte: 192.168.1.50 (NAS)
