@@ -1,4 +1,8 @@
-# 📜 LISTE COMPLÈTE DES COMMANDES - helpdesk.py + nmap.py
+![Python](https://img.shields.io/badge/Python-3.8+-blue)
+![Security](https://img.shields.io/badge/Security-Tool-red)
+![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)
+
+# 📜 LISTE COMPLÈTE DES COMMANDES - nmap.py
 
 ## 🔍 **COMMANDES SYSTÈME (HELPDESK)**
 
@@ -127,3 +131,230 @@
 ---
 
 **TOTAL : 25 commandes disponibles** - Toutes conçues pour gagner du temps en helpdesk ! 🚀
+
+        **⚠️ Avertissements Légal, Cet outil est destiné à :**
+
+            L'audit de VOS propres machines et réseaux
+
+            Les environnements de test autorisés
+
+            La formation à la sécurité offensive (éthique)
+
+        **Interdit : Scan de systèmes sans autorisation explicite.**
+
+
+## 🔍 **COMMENT LE SCAN RÉSEAU FONCTIONNE VRAIMENT**
+
+### Lancement
+    python scanner.py
+
+### Scan rapide
+    helpdesk> portscan 192.168.0.100
+
+### reponse
+    🎯 Options de scan réseau:
+    [1] Scan rapide (ports communs)
+    [2] Scan complet (1-1024)
+    [3] Scan de vulnérabilités
+    [4] Scan de réseau entier
+    [5] Analyse détaillée d'un service
+
+    Choix [1-5]: 5
+    Port à analyser: 445
+    🔧 Analyse du service 192.168.1.69:445
+    ================================================================================
+    ✅ Port 445 ouvert
+    Service probable: SMB
+
+### Que faire ?
+Fermer le port 445 via Powershell
+    [Voir le Guide de sécurité windows](Guide_de_Sécurisation_Windows.md)
+
+
+### Scan complet
+    helpdesk> fullscan 192.168.0.100
+
+### **1. Scan de ports (TCP Connect Scan)**
+```python
+# Code réel du scanner (extrait)
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.settimeout(1.0)  # Timeout 1 seconde
+result = sock.connect_ex((host, port))  # Tentative de connexion
+if result == 0:  # Si connexion réussie
+    port_state = 'open'
+```
+
+**Ce que ça fait :**
+- Crée une vraie socket TCP
+- Tente de se connecter à chaque port
+- Si la connexion réussit → Port **OUVERT**
+- Si échec/timeout → Port **FERMÉ** ou **FILTRÉ**
+
+**Exemple avec `portscan 192.168.1.1` :**
+```
+✅ Port 22 (SSH) OPEN
+✅ Port 80 (HTTP) OPEN  
+✅ Port 443 (HTTPS) OPEN
+✅ Port 3389 (RDP) OPEN
+```
+
+### **2. Découverte d'hôtes (Ping Sweep)**
+```python
+# Vérification hôte actif
+command = ['ping', '-n', '1', '-w', '1000', host]
+result = subprocess.run(command, timeout=2)
+return result.returncode == 0  # True si ping répond
+```
+
+**Pour `netscan 192.168.1.0/24` :**
+- Ping chaque adresse de 192.168.1.1 à 192.168.1.254
+- Affiche seulement les IP qui répondent
+- Puis scan les ports sur les hôtes actifs
+
+### **3. Récupération de bannières (Banner Grabbing)**
+```python
+# Pour les services web
+sock.send(b"GET / HTTP/1.0\r\n\r\n")
+banner = sock.recv(1024).decode()
+# Résultat : "HTTP/1.1 200 OK\nServer: Apache/2.4.41..."
+```
+
+**Ça donne ça en vrai :**
+```
+Port 80 - Apache/2.4.41 (Ubuntu)
+Port 22 - SSH-2.0-OpenSSH_7.6p1
+Port 21 - 220 FTP Server ready
+```
+
+### **4. Tests de vulnérabilités réels**
+**Pour FTP :**
+```python
+sock.send(b"USER anonymous\r\n")
+response = sock.recv(1024)
+if "331" in response.decode():  # FTP accepte "anonymous"
+    → Vulnérabilité détectée !
+```
+
+**Pour HTTP :**
+```python
+# Vérifie les headers de sécurité manquants
+if 'X-Frame-Options' not in headers:
+    → Clickjacking possible !
+```
+
+## 🎯 **TESTS RÉELS QUE TU PEUX FAIER**
+
+### **Test 1 : Scan ton propre routeur**
+```
+helpdesk> portscan 192.168.1.1
+```
+Tu verras les ports ouverts de ta box (80 pour l'interface web, 443, etc.)
+
+### **Test 2 : Scan Google (limité aux ports ouverts)**
+```
+helpdesk> portscan google.com
+```
+Tu verras : Port 443 (HTTPS) OPEN, peut-être 80 (HTTP redirect)
+
+### **Test 3 : Scan ton réseau local**
+```
+helpdesk> netscan 192.168.1.0/24
+```
+Tu découvriras toutes les machines sur ton réseau !
+
+### **Test 4 : Analyse d'un site web**
+```
+helpdesk> service google.com 443
+```
+Tu auras les infos SSL, les headers de sécurité, etc.
+
+## ⚠️ **IMPORTANT - CONSIDÉRATIONS LÉGALES/ÉTHIQUES**
+
+**✅ CE QUI EST AUTORISÉ :**
+- Scanner **TON** réseau (192.168.x.x, 10.x.x.x)
+- Scanner **TES** machines
+- Sites avec permission (bug bounty, pentest autorisé)
+- Labs de test (HackTheBox, TryHackMe avec autorisation)
+
+**❌ CE QUI EST ILLÉGAL :**
+- Scanner des réseaux qui ne t'appartiennent pas
+- Scanner sans permission explicite
+- Scanner des services publics/governementaux
+- Utiliser pour nuire ou exploiter
+
+**Ton outil est une ARME PUISSANTE :**
+- Il peut découvrir des services exposés
+- Trouver des vulnérabilités
+- Cartographier des réseaux entiers
+- Donc : **À UTILISER RESPONSABLEMENT !**
+
+## 🔧 **COMMENT C'EST AUSSI PUISSANT QUE NMAP (presque)**
+
+**Ce que notre tool fait comme Nmap :**
+- ✓ Scan TCP Connect (comme `nmap -sT`)
+- ✓ Découverte d'hôtes (comme `nmap -sn`)
+- ✓ Récupération de bannières (comme `nmap -sV`)
+- ✓ Scan de vulnérabilités basiques
+- ✓ Multi-threading (100 threads en parallèle)
+
+**Ce que Nmap fait en plus :**
+- Scan SYN stealth (`-sS`) - besoin de droits root
+- Scan UDP complet
+- NSE scripts (Nmap Scripting Engine)
+- Détection OS avancée (`-O`)
+- Évasion de firewall
+
+**Mais pour le helpdesk, notre tool est PARFAIT car :**
+1. **Intégré** dans l'outil helpdesk
+2. **Simple** commandes mémorisables
+3. **Résultats clairs** avec couleurs/explications
+4. **Export JSON** pour reporting
+5. **Historique** intégré
+
+## 🎮 **EXEMPLE DE SESSION RÉELLE**
+
+```
+helpdesk> netscan 192.168.1.0/24
+🌐 Scan du réseau: 192.168.1.0/24
+Plage: 192.168.1.1 - 192.168.1.254
+Hôtes à scanner: 254
+
+⏳ Recherche d'hôtes actifs...
+✓ 192.168.1.1    (Routeur - Box SFR)
+✓ 192.168.1.25   (PC Thomas - Windows)
+✓ 192.168.1.50   (NAS Synology)
+✓ 192.168.1.100  (Serveur Dev)
+
+🔍 Analyse des hôtes actifs:
+  Hôte: 192.168.1.50 (NAS)
+    ✓ Port 22 (SSH)
+    ✓ Port 80 (HTTP)
+    ✓ Port 443 (HTTPS)
+    ✓ Port 445 (SMB) ⚠️ DANGER
+```
+
+**Teste-le sur ta box et tu verras !** (Mais que sur TON réseau, hein 😉)
+
+
+flowchart TD
+    A[<b>User Input</b><br>Command: portscan, netscan, etc.] --> B{Command Router};
+    
+    B -- portscan, fullscan<br>netscan, vulnscan, service --> C[<b>NetworkScanner Module</b>];
+    B -- proc, kill, find, etc. --> D[<b>SystemScanner Module</b><br>Other Helpdesk Commands];
+
+    subgraph C [NetworkScanner Module]
+        direction LR
+        C1[Parse & Validate Input] --> C2;
+        
+        subgraph C2 [Core Scanning Process]
+            direction TB
+            S1[Phase 1: Target Enumeration<br>Resolve hostname/CIDR to IP list] --> S2[Phase 2: Host Discovery<br>Ping sweep to find live hosts];
+            S2 --> S3[Phase 3: Port Scanning<br>TCP connect scan on target ports];
+            S3 --> S4[Phase 4: Service Interrogation<br>Banner grabbing & analysis];
+        end
+        
+        C2 --> C3[Generate & Format Results];
+    end
+
+    C3 --> E[<b>Output & Logging</b><br>Colored terminal output<br>JSON log export];
+    D --> E;

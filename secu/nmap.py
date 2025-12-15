@@ -38,6 +38,7 @@ import urllib.error
 #import win32service
 #import win32con
 
+
 warnings.filterwarnings('ignore')
 
 # ================= CONFIGURATION COULEURS =================
@@ -493,7 +494,8 @@ class NetworkScanner:
                     'service': service,
                     'risk': 'HIGH',
                     'description': 'Port SMB ouvert - risque d\'exploitation (EternalBlue, WannaCry)',
-                    'recommendation': 'Mettre à jour Windows ou désactiver SMBv1'
+                    #'recommendation': 'Mettre à jour Windows ou désactiver SMBv1',
+                    'recommendation': 'Dans votre Powershell fermez le port : New-NetFirewallRule -DisplayName "SECU-BLOCK-SMB-445-IN" -Direction Inbound -Protocol TCP -LocalPort VOTRE_NUM_PORT -Action Block -RemoteAddress 192.168.1.0/24 -Profile Any'
                 })
             
             elif port == 23:
