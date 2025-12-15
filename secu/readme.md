@@ -161,7 +161,7 @@
 
     Choix [1-5]: 5
     Port à analyser: 445
-    🔧 Analyse du service 192.168.1.69:445
+    🔧 Analyse du service 192.168.0.100:445
     ================================================================================
     ✅ Port 445 ouvert
     Service probable: SMB

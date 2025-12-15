@@ -495,7 +495,7 @@ class NetworkScanner:
                     'risk': 'HIGH',
                     'description': 'Port SMB ouvert - risque d\'exploitation (EternalBlue, WannaCry)',
                     #'recommendation': 'Mettre à jour Windows ou désactiver SMBv1',
-                    'recommendation': 'Dans votre Powershell fermez le port : New-NetFirewallRule -DisplayName "SECU-BLOCK-SMB-445-IN" -Direction Inbound -Protocol TCP -LocalPort VOTRE_NUM_PORT -Action Block -RemoteAddress 192.168.1.0/24 -Profile Any'
+                    'recommendation': 'Dans votre Powershell fermez le port : New-NetFirewallRule -DisplayName "SECU-BLOCK-SMB-445-IN" -Direction Inbound -Protocol TCP -LocalPort 445 -Action Block -RemoteAddress 192.168.1.0/24 -Profile Any'
                 })
             
             elif port == 23:
@@ -1652,13 +1652,14 @@ def main():
                 clear_screen()
                 print_header()
                 continue
-            
+             
             elif choice in ['8', 'quit', 'exit', 'q']:
                 print(f"\n{Colors.GREEN}👋 Au revoir !{Colors.END}")
                 print(f"📊 Résumé de la session:")
                 print(f"   • Alertes générées: {len(scanner.alerts)}")
                 print(f"   • Commandes exécutées: {len(history.history)}")
                 print(f"   • Fichier de log: {scanner.log_file}")
+                print(f"{Colors.CYAN}Toolkit by gael-berru.com{Colors.END}\n")
                 break
             
             elif choice == 'help':
