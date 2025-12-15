@@ -2,7 +2,7 @@
 ![Security](https://img.shields.io/badge/Security-Tool-red)
 ![Platform](https://img.shields.io/badge/Platform-Windows-lightgrey)
 
-# 📜 LISTE COMPLÈTE DES COMMANDES - nmap.py
+# 📜 LISTE COMPLÈTE DES COMMANDES de nmap.py
 
 ## 🔍 **COMMANDES SYSTÈME (HELPDESK)**
 
@@ -146,7 +146,7 @@
 ## 🔍 **COMMENT LE SCAN RÉSEAU FONCTIONNE VRAIMENT**
 
 ### Lancement
-    python scanner.py
+    python nmap.py
 
 ### Scan rapide
     helpdesk> portscan 192.168.0.100
@@ -282,13 +282,13 @@ Tu auras les infos SSL, les headers de sécurité, etc.
 - Scanner des services publics/governementaux
 - Utiliser pour nuire ou exploiter
 
-**Ton outil est une ARME PUISSANTE :**
+**Cet outil est une ARME PUISSANTE :**
 - Il peut découvrir des services exposés
 - Trouver des vulnérabilités
 - Cartographier des réseaux entiers
 - Donc : **À UTILISER RESPONSABLEMENT !**
 
-## 🔧 **COMMENT C'EST AUSSI PUISSANT QUE NMAP (presque)**
+## 🔧 **COMMENT C'EST AUSSI PUISSANT QUE NMAP (presque 😅)**
 
 **Ce que notre tool fait comme Nmap :**
 - ✓ Scan TCP Connect (comme `nmap -sT`)
@@ -311,7 +311,7 @@ Tu auras les infos SSL, les headers de sécurité, etc.
 4. **Export JSON** pour reporting
 5. **Historique** intégré
 
-## 🎮 **EXEMPLE DE SESSION RÉELLE**
+## **EXEMPLE DE SESSION RÉELLE**
 
 ```
 helpdesk> netscan 192.168.1.0/24
@@ -336,25 +336,16 @@ Hôtes à scanner: 254
 **Teste-le sur ta box et tu verras !** (Mais que sur TON réseau, hein 😉)
 
 
-flowchart TD
-    A[<b>User Input</b><br>Command: portscan, netscan, etc.] --> B{Command Router};
-    
-    B -- portscan, fullscan<br>netscan, vulnscan, service --> C[<b>NetworkScanner Module</b>];
-    B -- proc, kill, find, etc. --> D[<b>SystemScanner Module</b><br>Other Helpdesk Commands];
 
-    subgraph C [NetworkScanner Module]
-        direction LR
-        C1[Parse & Validate Input] --> C2;
-        
-        subgraph C2 [Core Scanning Process]
-            direction TB
-            S1[Phase 1: Target Enumeration<br>Resolve hostname/CIDR to IP list] --> S2[Phase 2: Host Discovery<br>Ping sweep to find live hosts];
-            S2 --> S3[Phase 3: Port Scanning<br>TCP connect scan on target ports];
-            S3 --> S4[Phase 4: Service Interrogation<br>Banner grabbing & analysis];
-        end
-        
-        C2 --> C3[Generate & Format Results];
-    end
-
-    C3 --> E[<b>Output & Logging</b><br>Colored terminal output<br>JSON log export];
-    D --> E;
+graph TD
+    A[Interface CLI] --> B[Command Router]
+    B --> C[SystemScanner]
+    B --> D[NetworkScanner]
+    C --> E[Process Analysis]
+    C --> F[Disk Monitoring]
+    D --> G[Port Scanner]
+    D --> H[Vulnerability Detection]
+    E --> I[JSON Report]
+    F --> I
+    G --> I
+    H --> I
