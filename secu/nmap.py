@@ -10,6 +10,19 @@
 # info	        systeminfo + wmic cpu get + wmic memorychip get	                Extraire infos pertinentes dans 50 lignes
 # full	        TOUTES les commandes ci-dessus + analyse automatique	        5 minutes de copier-coller dans 3 fenêtres
 # nmap mini en cours...
+
+""" # A IMPLEMENTER :
+    # transfert via protocol SMB
+elif cmd.startswith("smb-send"):
+    # Lance le script SMB en arrière-plan
+    os.system(f"python ./protocolSMB/smb_transfer.py {cmd[8:]}")
+    
+elif cmd == "smb-share":
+    # Lance le menu SMB
+    os.system("python ./protocolSMB/smb_transfer.py")
+    Returns:
+        _type_: _description_
+"""
 import os
 import sys
 import psutil

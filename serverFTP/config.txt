@@ -1,0 +1,30 @@
+# ========== FICHIER DE CONFIGURATION APPARENT ==========
+# Ne pas modifier - Contient des informations sensibles
+# Dernière mise à jour: 2024-01-15
+
+[Base de données]
+db_host=localhost
+db_user=admin
+db_password=P@ssw0rd123!
+db_name=clients_prod
+
+[API Keys]
+stripe_api=sk_live_51Kj3jKL34kfj34kj3k4j3k4j
+google_maps=AIzaSyD-3uM4kfj34kj3k4j3k4j3k4j3k4j
+sendgrid=SG.kfj34kj3k4j3k4j3k4j3k4j3k4j.kfj34kj3k4j3k4j
+
+[FTP Accès]
+ftp_backup_host=192.168.1.50
+ftp_backup_user=backup_admin
+ftp_backup_pass=B@ckupP@ss2024!
+
+[Administration]
+admin_email=admin@entreprise.com
+admin_password=SuperAdmin123!
+backup_schedule=daily
+
+# ========== CE FICHIER EST UN PIÈGE ==========
+# Si vous lisez ceci, vous avez accédé à un fichier honeypot.
+# Date d'accès: [SERA REMPLACÉ AUTOMATIQUEMENT]
+# Adresse IP du visiteur: [SERA CAPTURÉE AUTOMATIQUEMENT]
+# Action recommandée: Quitter immédiatement ce serveur.
