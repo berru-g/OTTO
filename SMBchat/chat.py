@@ -47,12 +47,12 @@ def print_banner():
     clear_screen()
     banner = f"""
 {Colors.CYAN}{'='*70}
-{Colors.BOLD}💬 LOCAL NETWORK CHAT SMB - Chat Local P2P{Colors.END}
+{Colors.BOLD}💬 LOCAL NETWORK CHAT P2P{Colors.END}
 {Colors.CYAN}{'='*70}
 {Colors.YELLOW}📡 Scan réseau automatique + Chat en temps réel
 {Colors.MAGENTA}✨ Basé sur le protocol SMB 
 {Colors.GREEN}👥 Discute avec les personnes sur ton réseau WiFi!
-{Colors.MAGENTA}💎 Projet open source github.com/berru-g/OTTO/SMBchat/
+{Colors.MAGENTA}💎 Projet open source https://github.com/berru-g/OTTO/SMBchat/
 {Colors.CYAN}{'='*70}{Colors.END}
     """
     print(banner)

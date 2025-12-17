@@ -46,7 +46,7 @@ def print_banner():
 {Colors.CYAN}{'='*70}
 {Colors.YELLOW}📁 Partage de fichiers simplifié via réseau local
 {Colors.MAGENTA}✨ Scan auto du réseau + Interface fluide
-{Colors.GREEN}👥 Parfait pour partager avec ton coloc!
+{Colors.GREEN}👥 Via SMB protocol
 {Colors.CYAN}{'='*70}{Colors.END}
     """
     print(banner)

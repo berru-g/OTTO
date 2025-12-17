@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# ftp_honeypot_monitor.py - Détecte les intrusions sur ton serveur FTP
+# ftp_honeypot_monitor.py - Détecte les intrusions sur ton serveur FTP via un honeypot
 # Usage: python ftp_honeypot_monitor.py
 
 import os

@@ -2,7 +2,7 @@
     Le protocole SMB (Server Message Block) est couramment utilisé pour le partage de fichiers et d'imprimantes sur les réseaux locaux. Il permet aux utilisateurs de se connecter à des ressources partagées sur d'autres ordinateurs.
 
 ## Étapes pour transférer des fichiers via SMB 
-### via le menu 
+### Démarrage et menu 
 
 🌐 VOTRE RÉSEAU:
    📍 Votre IP: 192.168.1.100
