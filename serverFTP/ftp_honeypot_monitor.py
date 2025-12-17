@@ -16,7 +16,7 @@ from pathlib import Path
 # ================= CONFIGURATION =================
 CONFIG = {
     # Tes infos FTP
-    'ftp_host': '192.168.1.00',      # IP de ton téléphone
+    'ftp_host': '192.168.1.12',      # IP de ton téléphone
     'ftp_port': 2221,              # Port FTP
     'ftp_user': 'android',             # Change si différent
     'ftp_pass': 'servertest',              # Change si différent
