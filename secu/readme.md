@@ -170,6 +170,8 @@
 Fermer le port 445 via Powershell
     [Voir le Guide de sécurité windows](Guide_de_Sécurisation_Windows.md)
 
+*Expérimenter le partage de messages sur votre réseau local, via le protocole SMB sur le port 445 , avec [chat via SMB](./SMBchat/)*
+
 
 ### Scan complet
     helpdesk> fullscan 192.168.0.100
