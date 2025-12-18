@@ -610,6 +610,10 @@ def main_menu():
             broadcast_presence()
             print(f"{Colors.GREEN}✅ Présence annoncée sur le réseau{Colors.END}")
             time.sleep(1)
+            
+        elif choice == 'test':
+            quick_test()
+            time.sleep(1)
         
         else:
             print(f"{Colors.RED}❌ Choix invalide{Colors.END}")
