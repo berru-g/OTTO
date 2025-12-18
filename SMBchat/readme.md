@@ -53,4 +53,4 @@ Tu pratiques:
 Ce projet est à but éducatif uniquement. Utilisez-le de manière responsable et respectez la vie privée des autres utilisateurs sur le réseau local.
 
     - Je vous conseille de compiler vous meme vos scripts pour eviter les malwares.
-    - pyinstaller --onefile --icon=chat_icon.ico --version-file=version_info.txt chat.py    
+    - pyinstaller --onefile --icon=chat_icon.ico --version-file=version_info.txt SMBchat.py    
