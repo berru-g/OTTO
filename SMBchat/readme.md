@@ -1,8 +1,32 @@
-# Projet de chat P2P via le protocol SMB / fonctionne sur le reseau local
-    - Local Network Chat with SMB protocol
-    - Pour dialoguer avec vos amis sur le meme reseau local
+# Chat P2P en Réseau Local via le protocol SMB
 
-## 🚀 Fonctionnalités principales
+[![Python](https://img.shields.io/badge/Python-3.7+-blue.svg)](https://python.org)
+[![Windows](https://img.shields.io/badge/Windows-supported-green.svg)](https://windows.com)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+Application de chat décentralisé pour réseau local avec fonctionnalités...
+
+## ✨ Fonctionnalités
+- 🔍 Scan réseau automatique (ARP, ping, ports)
+- 💬 Chat temps réel P2P
+- 🔔 Notifications système Windows (Toast + Sons)
+- 📁 Transfert fichiers intégré
+- 🛡️ Détection de sécurité
+
+## 🚀 Installation
+```bash
+pip install -r requirements.txt
+python chatSMB.py
+```
+
+## 🌐 Architecture du Système
+
+[Client] ←TCP→ [Client]
+    ↑            ↑
+    UDP Broadcast
+
+
+## MENU principales
 
         ======================================================================
         💬 LOCAL NETWORK CHAT P2P

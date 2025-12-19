@@ -850,7 +850,7 @@ def get_user_input(prompt, timeout=1):
         
         return None
 
-def chat_with_user(target_ip):
+'''def chat_with_user(target_ip):
     """Mode chat interactif avec un utilisateur"""
     global current_chat
     
@@ -910,7 +910,81 @@ def chat_with_user(target_ip):
         
         # Petite pause pour éviter la surcharge CPU
         time.sleep(0.1)
-
+'''
+def chat_with_user(target_ip):
+    """Mode chat interactif FIXÉ - sans saut de curseur"""
+    global current_chat
+    
+    current_chat = target_ip
+    target_name = online_users.get(target_ip, {}).get('name', target_ip)
+    
+    clear_screen()
+    print(print_header())
+    print(f"\n{Colors.GREEN}💬 Discussion avec {target_name} ({target_ip}){Colors.END}")
+    print(f"{Colors.YELLOW}Tapez '/quit' pour quitter{Colors.END}")
+    print(f"{Colors.CYAN}{'─'*50}{Colors.END}")
+    
+    # Afficher historique
+    display_chat_history(target_ip)
+    
+    # DERNIER MESSAGE POUR SYNCHRO
+    last_msg_count = len(messages)
+    
+    while True:
+        try:
+            # Afficher nouveaux messages SANS casser l'input
+            if len(messages) > last_msg_count:
+                new_msgs = messages[last_msg_count:]
+                for msg in new_msgs:
+                    if msg.get('from') == target_ip or msg.get('to') == target_ip:
+                        time_str = msg['timestamp'].strftime("%H:%M")
+                        emoji = format_message(msg)
+                        
+                        if msg['type'] == 'received':
+                            print(f"{Colors.GREEN}[{time_str}] {msg['from_name']}: {msg['text']}{emoji}{Colors.END}")
+                        else:
+                            print(f"{Colors.BLUE}[{time_str}] Vous: {msg['text']}{emoji}{Colors.END}")
+                
+                last_msg_count = len(messages)
+            
+            # Input NORMAL - PAS de timeout, PAS de check_new_messages pendant
+            user_input = input(f"\n{Colors.BOLD}Vous: {Colors.END}").strip()
+            
+            if not user_input:
+                continue
+            
+            # Commandes slash
+            if user_input.startswith('/'):
+                if user_input.lower() == '/quit':
+                    print(f"{Colors.YELLOW}👋 Fin de discussion{Colors.END}")
+                    current_chat = None
+                    time.sleep(1)
+                    break
+                elif user_input.lower() == '/clear':
+                    clear_screen()
+                    print(print_header())
+                    print(f"\n{Colors.Green}💬 Discussion avec {target_name} ({target_ip}){Colors.END}")
+                    display_chat_history(target_ip)
+                    continue
+                elif handle_slash_command(user_input, target_ip):
+                    continue
+            
+            # Envoyer message
+            success, result = send_chat_message(target_ip, user_input)
+            
+            if success:
+                # Afficher immédiatement
+                time_str = datetime.now().strftime("%H:%M")
+                emoji = format_message({'text': user_input.lower()})
+                print(f"{Colors.BLUE}[{time_str}] Vous: {user_input}{emoji}{Colors.END}")
+                last_msg_count = len(messages)  # Mettre à jour le compteur
+            else:
+                print(f"{Colors.RED}{result}{Colors.END}")
+                
+        except KeyboardInterrupt:
+            print(f"\n{Colors.YELLOW}⚠️  Utilisez '/quit' pour quitter proprement{Colors.END}")
+            
+            
 def check_new_messages():
     """Vérifie et affiche les nouveaux messages"""
     global messages
