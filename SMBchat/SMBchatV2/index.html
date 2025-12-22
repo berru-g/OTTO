@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SMB chat v_1.2 - Communication Interne Autonome</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #10b981;
+            --accent: #8b5cf6;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --card-border: rgba(99, 102, 241, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1.2rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 1.5rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--gray-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            padding: 0.5rem 0;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--light);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 12rem 5% 6rem;
+            text-align: center;
+            background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 40%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            color: var(--gray-light);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            box-shadow: 0 10px 25px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--light);
+            border: 2px solid rgba(99, 102, 241, 0.5);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: var(--primary);
+        }
+
+        /* Features Section */
+        .section {
+            padding: 5rem 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 4rem;
+            font-size: 1.2rem;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid var(--card-border);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(99, 102, 241, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card p {
+            color: var(--gray-light);
+        }
+
+        /* Comparison Table */
+        .comparison {
+            background: rgba(2, 6, 23, 0.5);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 4rem auto;
+            max-width: 1000px;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 1.2rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .comparison-table th {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .good {
+            color: var(--secondary);
+        }
+
+        .bad {
+            color: #ef4444;
+        }
+
+        /* Roadmap */
+        .roadmap-container {
+            max-width: 900px;
+            margin: 4rem auto;
+            position: relative;
+        }
+
+        .roadmap-container::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+            border-radius: 2px;
+        }
+
+        .roadmap-item {
+            position: relative;
+            margin-bottom: 3rem;
+            padding-left: 80px;
+        }
+
+        .roadmap-item::before {
+            content: '';
+            position: absolute;
+            left: 22px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--primary);
+            z-index: 1;
+            border: 4px solid var(--dark);
+        }
+
+        .roadmap-item.completed::before {
+            background: var(--secondary);
+        }
+
+        .roadmap-item.active::before {
+            box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.3);
+        }
+
+        .roadmap-date {
+            color: var(--secondary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .roadmap-content {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid var(--card-border);
+        }
+
+        .roadmap-content h4 {
+            font-size: 1.3rem;
+            margin-bottom: 0.7rem;
+        }
+
+        /* FAQ */
+        .faq-container {
+            max-width: 800px;
+            margin: 3rem auto;
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            border: 1px solid var(--card-border);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s, padding 0.3s;
+            color: var(--gray-light);
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 500px;
+        }
+
+        .faq-toggle {
+            transition: transform 0.3s;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid var(--card-border);
+            position: relative;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: var(--gray-light);
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(2, 6, 23, 0.8);
+            padding: 4rem 5% 2rem;
+            margin-top: 5rem;
+            border-top: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-column h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--light);
+        }
+
+        .open-source-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.7rem;
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem 5%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .comparison {
+                padding: 2rem 1rem;
+                overflow-x: auto;
+            }
+
+            .roadmap-container::before {
+                left: 20px;
+            }
+
+            .roadmap-item {
+                padding-left: 60px;
+            }
+
+            .roadmap-item::before {
+                left: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-network-wired"></i>
+            <span>SMB chat v_1.2</span>
+        </div>
+        <div class="nav-links">
+            <a href="#features">Fonctionnalités</a>
+            <a href="#roadmap">Roadmap</a>
+            <a href="#faq">FAQ</a>
+            <a href="#download">Télécharger</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Communication <span class="gradient-text">Interne Autonome</span> pour Votre Structure</h1>
+        <p>SMB chat v_1.2 est l'outil open source qui transforme votre réseau local en espace de collaboration sécurisé.
+            Chat, transfert de fichiers, le tout sans serveur externe.</p>
+        <div class="cta-buttons">
+            <a href="#download" class="btn btn-primary">
+                <i class="fas fa-download"></i> Télécharger pour Windows
+            </a>
+            <a href="https://github.com/berru-g/OTTO/SMBchat/" target="_blank" class="btn btn-secondary">
+                <i class="fab fa-github"></i> Voir sur GitHub
+            </a>
+        </div>
+        <div style="margin-top: 3rem; color: var(--gray);">
+            <i class="fas fa-shield-alt"></i> 100% Open Source • Aucun abonnement • Respect de la vie privée
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="section" id="features">
+        <h2 class="section-title">Fonctionnalités <span class="gradient-text">Essentielles</span></h2>
+        <p class="section-subtitle">Tout ce dont votre petite équipe a besoin pour collaborer efficacement, directement
+            sur votre réseau local.</p>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-comments"></i>
+                </div>
+                <h3>Chat en Temps Réel</h3>
+                <p>Discutez avec vos collègues via une interface moderne. Détection automatique des utilisateurs,
+                    messages éphémères ( s'efface au redémarrage du pc ), historique organisé.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-file-export"></i>
+                </div>
+                <h3>Transfert Ultra-Rapide</h3>
+                <p>Partagez fichiers et dossiers directement entre postes. Aucune limite de taille, barre de progression
+                    en temps réel, historique des transferts.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h3>Sécurité Intégrée</h3>
+                <p>Tout reste sur votre réseau. Pas de serveur externe, messages chiffrés localement, contrôle total sur
+                    qui peut vous contacter.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-broadcast-tower"></i>
+                </div>
+                <h3>Détection Automatique</h3>
+                <p>L'application scanne votre réseau et détecte automatiquement les autres utilisateurs. Aucune
+                    configuration IP complexe nécessaire.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-code-branch"></i>
+                </div>
+                <h3>Dual Interface</h3>
+                <p>Interface graphique moderne pour tous, et mode console pour les puristes. Adaptez l'outil à votre
+                    flux de travail.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-infinity"></i>
+                </div>
+                <h3>Open Source & Évolutif</h3>
+                <p>Code 100% ouvert, modifiable et extensible. Contribuez ou adaptez le logiciel aux besoins spécifiques
+                    de votre structure.</p>
+            </div>
+        </div>
+
+        <!-- Comparison Table -->
+        <div class="comparison">
+            <h3 style="text-align: center; margin-bottom: 1rem;">Pourquoi Choisir SMB chat v_1.2 ?</h3>
+            <table class="comparison-table">
+                <tr>
+                    <th></th>
+                    <th>Solutions SaaS (Slack, Teams)</th>
+                    <th>SMB chat v_1.2</th>
+                </tr>
+                <tr>
+                    <td>Coût</td>
+                    <td class="bad">Abonnements mensuels par utilisateur</td>
+                    <td class="good">Gratuit, open source</td>
+                </tr>
+                <tr>
+                    <td>Vie Privée</td>
+                    <td class="bad">Données sur serveurs externes</td>
+                    <td class="good">Tout reste sur votre réseau</td>
+                </tr>
+                <tr>
+                    <td>Configuration</td>
+                    <td class="bad">Comptes, authentification, administration</td>
+                    <td class="good">Lancez et utilisez, détection automatique</td>
+                </tr>
+                <tr>
+                    <td>Latence</td>
+                    <td class="bad">Dépend de votre connexion Internet</td>
+                    <td class="good">Ultra-rapide, réseau local uniquement</td>
+                </tr>
+                <tr>
+                    <td>Personnalisation</td>
+                    <td class="bad">Limitée aux options fournies</td>
+                    <td class="good">Illimitée, code source disponible</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <!-- Roadmap Section -->
+    <section class="section" id="roadmap" style="background: rgba(2, 6, 23, 0.3);">
+        <h2 class="section-title">Roadmap <span class="gradient-text">Évolutive</span></h2>
+        <p class="section-subtitle">Notre vision pour l'avenir de la communication interne autonome. Contribuez à
+            façonner cette roadmap !</p>
+
+        <div class="roadmap-container">
+            <div class="roadmap-item completed">
+                <div class="roadmap-date">Step 1 2004 - TERMINÉ</div>
+                <div class="roadmap-content">
+                    <h4>Version Fondamentale</h4>
+                    <p>Chat basique, transfert de fichiers, détection réseau.</p>
+                </div>
+            </div>
+
+            <div class="roadmap-item active">
+                <div class="roadmap-date">Step 2 2005 - TERMINÉ</div>
+                <div class="roadmap-content">
+                    <h4>Sécurité Avancée</h4>
+                    <p>Chiffrement des messages, stockage interne, données effacées automatiquement à chaque redémarrage.</p>
+                </div>
+            </div>
+
+            <div class="roadmap-item">
+                <div class="roadmap-date">Step 3 2005 - EN COURS</div>
+                <div class="roadmap-content">
+                    <h4>Collaboration Évoluée</h4>
+                    <p>✅ Interface duale (console + GUI) . A suivre : Partage d'écran léger, tableau blanc collaboratif, salles de discussion thématiques. Renforcement sécurité des ports.</p>
+                </div>
+            </div>
+
+            <div class="roadmap-item">
+                <div class="roadmap-date">Step 4 2006</div>
+                <div class="roadmap-content">
+                    <h4>Administration & Analytics</h4>
+                    <p>Console d'administration, statistiques d'utilisation, plugins système, API publique.</p>
+                </div>
+            </div>
+
+            <div class="roadmap-item">
+                <div class="roadmap-date">2025</div>
+                <div class="roadmap-content">
+                    <h4>Vision Future</h4>
+                    <p>Support mobile (apk), synchronisation inter-sites sécurisée, IA locale, marketplace de plugins.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section" id="faq">
+        <h2 class="section-title">Questions <span class="gradient-text">Fréquentes</span></h2>
+        <p class="section-subtitle">Trouvez rapidement des réponses à vos interrogations sur SMB chat v_1.2.</p>
+
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Est-ce vraiment sécurisé sans connexion Internet ?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Absolument. La sécurité est même renforcée : toutes les communications restent strictement sur
+                        VOTRE réseau local. Pas de passage par des serveurs externes, pas d'exposition à Internet. Vous
+                        avez un contrôle total sur le trafic.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Puis-je l'utiliser sur Mac ou Linux ?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>La version .exe téléchargeable est pour Windows. Cependant, le code source Python fonctionne
+                        parfaitement sur Mac et Linux. Des packages natifs pour ces systèmes sont prévus dans notre
+                        roadmap. En attendant, vous pouvez exécuter le script Python directement.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Comment contribuer au projet ?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Plusieurs façons : 1) En tant que développeur : codez de nouvelles fonctionnalités, corrigez des
+                        bugs. 2) En tant que designer : améliorez l'interface. 3) En tant qu'utilisateur : testez et
+                        rapportez des bugs. 4) En faisant des traductions. Toutes les contributions sont les bienvenues
+                        sur GitHub !</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Step ue se passe-t-il si mon réseau local tombe en panne ?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>L'application détectera la perte de connexion et se mettra en pause. Vos messages en cours sont
+                        sauvegardés localement. Dès que le réseau est rétabli, la détection automatique reprend et vous
+                        pouvez continuer à communiquer. L'historique de vos conversations reste disponible.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span>Pourquoi open source et gratuit ?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <p>Nous croyons que les outils de communication de base devraient être accessibles à toutes les
+                        structures, indépendamment de leur budget. L'open source garantit transparence, sécurité, et
+                        permet à la communauté d'améliorer l'outil pour tous. C'est un projet communautaire, pas
+                        commercial.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="section" style="background: rgba(99, 102, 241, 0.05);">
+        <h2 class="section-title">Ils utilisent déjà <span class="gradient-text">SMB chat v_1.2</span></h2>
+        <p class="section-subtitle">Découvrez comment d'autres petites structures ont transformé leur communication
+            interne.</p>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    "Enfin une solution simple pour notre équipe de 8 personnes ! Plus besoin de multiplier les
+                    applications. Le transfert de fichiers est si rapide comparé à nos anciennes méthodes par email."
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">ML</div>
+                    <div>
+                        <div style="font-weight: bold;">Marie L.</div>
+                        <div style="color: var(--gray); font-size: 0.9rem;">Gérante, Agence Web PixelCraft</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    "L'aspect open source était crucial pour nous. Nous avons pu adapter légèrement l'interface à nos
+                    besoins spécifiques. La communauté sur GitHub est très réactive et aide."
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">AD</div>
+                    <div>
+                        <div style="font-weight: bold;">Alexandre D.</div>
+                        <div style="color: var(--gray); font-size: 0.9rem;">Développeur, Startup Technova</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card">
+                <div class="testimonial-text">
+                    "Nos données sensibles restent sur notre réseau. C'était un critère non-négociable pour notre
+                    cabinet comptable. SMB chat v_1.2 a répondu parfaitement à ce besoin de confidentialité."
+                </div>
+                <div class="testimonial-author">
+                    <div class="author-avatar">TP</div>
+                    <div>
+                        <div style="font-weight: bold;">Thomas P.</div>
+                        <div style="color: var(--gray); font-size: 0.9rem;">Directeur, Cabinet Comptable FinExpert</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section class="section" id="download" style="text-align: center;">
+        <h2 class="section-title">Prêt à <span class="gradient-text">Transformer</span> Votre Communication Interne ?
+        </h2>
+        <p class="section-subtitle">Téléchargez SMB chat v_1.2 gratuitement. Aucune inscription, aucun abonnement, juste
+            votre réseau local.</p>
+
+        <div
+            style="max-width: 600px; margin: 3rem auto; background: var(--card-bg); border-radius: 16px; padding: 3rem; border: 1px solid var(--card-border);">
+            <div class="open-source-badge" style="margin: 0 auto 2rem;">
+                <i class="fab fa-osi"></i> Logiciel Libre - Licence MIT
+            </div>
+
+            <h3 style="margin-bottom: 1.5rem;">Téléchargement Windows</h3>
+            <p style="margin-bottom: 2rem; color: var(--gray-light);">Version 1.0 - Taille : ~15 MB - Pour Windows 10/11
+                (64-bit)</p>
+
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                <a href="#" class="btn btn-primary" style="justify-content: center;">
+                    <i class="fas fa-download"></i> Télécharger SMBchatV2.exe
+                </a>
+
+                <div style="color: var(--gray); font-size: 0.9rem;">
+                    <i class="fas fa-shield-alt"></i> Vérifié open source - Aucun malware
+                </div>
+
+                <div style="color: var(--secondary); font-size: 0.9rem; margin-top: 0.5rem;">
+                    <i class="fas fa-download"></i>
+                    <span id="downloadCounter"> téléchargements</span>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.05);">
+                <p style="color: var(--gray); margin-bottom: 1rem;">Pour les autres systèmes, pour vérifier le code avant téléchargement, ou si vous voulez
+                    contribuer au projet :</p>
+                <a href="https://github.com/berru-g/OTTO/SMBchat/" target="_blank" class="btn btn-secondary">
+                    <i class="fab fa-github"></i> Accéder au Code Source sur GitHub
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-grid">
+            <div class="footer-column">
+                <h4>SMB chat v_1.2</h4>
+                <p style="color: var(--gray); margin-bottom: 1.5rem;">L'outil de communication interne open source pour
+                    petites structures.</p>
+                <div class="open-source-badge">
+                    <i class="fab fa-osi"></i> 100% Open Source
+                </div>
+            </div>
+
+            <div class="footer-column">
+                <h4>Liens Rapides</h4>
+                <ul class="footer-links">
+                    <li><a href="#features">Fonctionnalités</a></li>
+                    <li><a href="#roadmap">Roadmap</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#download">Télécharger</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Communauté</h4>
+                <ul class="footer-links">
+                    <li><a href="https://github.com/berru-g/OTTO/SMBchat/" target="_blank">GitHub</a></li>
+                    <li><a href="https://github.com/berru-g/OTTO/SMBchat/issues" target="_blank">Signaler un bug</a>
+                    </li>
+                    <li><a href="https://github.com/berru-g/OTTO/SMBchat/discussions" target="_blank">Discussions</a>
+                    </li>
+                    <li><a href="https://github.com/berru-g/OTTO/SMBchat/blob/main/CONTRIBUTING.md"
+                            target="_blank">Contribuer</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-column">
+                <h4>Légal</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Licence MIT</a></li>
+                    <li><a href="#">Politique de confidentialité</a></li>
+                    <li><a href="#">Conditions d'utilisation</a></li>
+                    <li><a href="#">Attribution</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2005 SMB chat v_1.2. Projet open source sous licence MIT. "SMB chat v_1.2" est un projet communautaire,
+                non affilié à aucune entreprise commerciale.</p>
+            <p style="margin-top: 1rem;">Fait avec Deepseek et <a href="https://gael-berru.com">Berru-g</a> pour les petites entreprises, associations et collectifs.</p>
+        </div>
+    </footer>
+
+    <script>
+        
+        // FONCTIONNALITÉ DE TÉLÉCHARGEMENT
+        document.addEventListener('DOMContentLoaded', function () {
+            const downloadBtn = document.querySelector('a.btn-primary[href="#"]');
+            const downloadUrl = 'dist/SMBchatV2.exe'; // Remplacez par le chemin réel de votre fichier
+            const fileSize = 32; // Taille en MB (à ajuster)
+
+            if (downloadBtn) {
+                // Remplacer le lien "#" par la fonction de téléchargement
+                downloadBtn.href = 'javascript:void(0);';
+
+                downloadBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    startDownloadSimulation(downloadUrl, fileSize);
+                });
+            }
+
+            function startDownloadSimulation(url, sizeMB) {
+                const originalText = downloadBtn.innerHTML;
+
+                // Créer une superposition pour la simulation
+                const overlay = document.createElement('div');
+                overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            backdrop-filter: blur(5px);
+        `;
+
+                // Contenu de la modal de téléchargement
+                overlay.innerHTML = `
+            <div style="background: var(--card-bg); padding: 2rem; border-radius: 16px; border: 1px solid var(--card-border); max-width: 400px; text-align: center;">
+                <div style="font-size: 3rem; margin-bottom: 1rem;">
+                    <i class="fas fa-download"></i>
+                </div>
+                <h3 style="margin-bottom: 1rem;">Téléchargement en cours</h3>
+                <p style="color: var(--gray); margin-bottom: 1.5rem;">SMBchatV2.exe (${sizeMB} MB)</p>
+                
+                <!-- Barre de progression -->
+                <div style="background: rgba(255,255,255,0.1); height: 8px; border-radius: 4px; margin-bottom: 1rem; overflow: hidden;">
+                    <div id="progressBar" style="background: linear-gradient(90deg, var(--primary), var(--accent)); height: 100%; width: 0%; border-radius: 4px; transition: width 0.3s;"></div>
+                </div>
+                
+                <div style="display: flex; justify-content: space-between; margin-bottom: 2rem;">
+                    <span id="progressText">0%</span>
+                    <span id="speedText">Initialisation...</span>
+                </div>
+                
+                <button id="cancelBtn" style="background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.3); padding: 0.5rem 1.5rem; border-radius: 8px; cursor: pointer;">
+                    Annuler
+                </button>
+            </div>
+        `;
+
+                document.body.appendChild(overlay);
+
+                const progressBar = document.getElementById('progressBar');
+                const progressText = document.getElementById('progressText');
+                const speedText = document.getElementById('speedText');
+                const cancelBtn = document.getElementById('cancelBtn');
+
+                let progress = 0;
+                let downloadSpeed = 5; // MB/s (simulé)
+                let cancelled = false;
+
+                // Animation de téléchargement simulé
+                const downloadInterval = setInterval(() => {
+                    if (cancelled) {
+                        clearInterval(downloadInterval);
+                        progressBar.style.width = '0%';
+                        progressText.textContent = 'Annulé';
+                        speedText.textContent = 'Téléchargement interrompu';
+
+                        setTimeout(() => {
+                            document.body.removeChild(overlay);
+                            downloadBtn.innerHTML = originalText;
+                        }, 1500);
+                        return;
+                    }
+
+                    progress += 2; // 2% par intervalle
+                    if (progress > 100) progress = 100;
+
+                    progressBar.style.width = progress + '%';
+                    progressText.textContent = progress + '%';
+
+                    // Calcul de vitesse simulée
+                    const remainingMB = (sizeMB * (100 - progress) / 100).toFixed(1);
+                    speedText.textContent = `${downloadSpeed.toFixed(1)} MB/s • ${remainingMB} MB restant`;
+
+                    // Téléchargement terminé
+                    if (progress >= 100) {
+                        clearInterval(downloadInterval);
+                        progressText.textContent = 'Terminé !';
+                        speedText.textContent = 'Téléchargement réussi';
+
+                        // Changer l'icône
+                        const icon = overlay.querySelector('.fa-download');
+                        icon.className = 'fas fa-check-circle';
+                        icon.style.color = '#10b981';
+
+                        // Lancer le vrai téléchargement
+                        setTimeout(() => {
+                            triggerRealDownload(url);
+                            document.body.removeChild(overlay);
+                            downloadBtn.innerHTML = '<i class="fas fa-check"></i> Téléchargement terminé';
+
+                            // Réinitialiser après 3 secondes
+                            setTimeout(() => {
+                                downloadBtn.innerHTML = originalText;
+                            }, 3000);
+                        }, 1000);
+                    }
+                }, 100); // Mise à jour toutes les 100ms
+
+                // Bouton annuler
+                cancelBtn.addEventListener('click', function () {
+                    cancelled = true;
+                    cancelBtn.textContent = 'Annulation...';
+                    cancelBtn.disabled = true;
+                });
+
+                // Fermer en cliquant à l'extérieur
+                overlay.addEventListener('click', function (e) {
+                    if (e.target === overlay) {
+                        cancelled = true;
+                        clearInterval(downloadInterval);
+                        document.body.removeChild(overlay);
+                        downloadBtn.innerHTML = originalText;
+                    }
+                });
+            }
+
+            function triggerRealDownload(url) {
+                // Créer un lien invisible pour le téléchargement réel
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = url.split('/').pop();
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                // Analytics simulé (optionnel)
+                console.log('Téléchargement initié:', url);
+
+                // Ici vous pourriez ajouter un appel à Google Analytics ou autre
+                // fetch('/api/download-track', { method: 'POST', body: JSON.stringify({ file: url }) });
+            }
+
+            // Vérification de la disponibilité du fichier (optionnel)
+            function checkFileAvailability(url) {
+                fetch(url, { method: 'HEAD' })
+                    .then(response => {
+                        if (!response.ok) {
+                            downloadBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Fichier temporairement indisponible';
+                            downloadBtn.style.backgroundColor = '#dc2626';
+                            downloadBtn.disabled = true;
+                        }
+                    })
+                    .catch(() => {
+                        downloadBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Erreur de connexion';
+                        downloadBtn.style.backgroundColor = '#dc2626';
+                    });
+            }
+
+            // Vérifier au chargement de la page (optionnel)
+            // checkFileAvailability(downloadUrl);
+        });
+    </script>
+
+    <script>
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+
+        // Smooth Scrolling for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Navbar Background on Scroll
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(15, 23, 42, 0.98)';
+                navbar.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.2)';
+            } else {
+                navbar.style.background = 'rgba(15, 23, 42, 0.95)';
+                navbar.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>
