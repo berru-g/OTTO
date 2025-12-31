@@ -1,0 +1,274 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <title>📱 Partage Réseau Local</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            
+            body {
+                font-family: 'Segoe UI', system-ui, sans-serif;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-height: 100vh;
+                padding: 20px;
+                color: white;
+            }
+            
+            .container {
+                max-width: 800px;
+                margin: 0 auto;
+                background: rgba(255, 255, 255, 0.95);
+                border-radius: 20px;
+                padding: 30px;
+                color: #333;
+                box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            }
+            
+            h1 {
+                color: #4a5568;
+                margin-bottom: 10px;
+                font-size: 2.5em;
+            }
+            
+            .server-info {
+                background: #edf2f7;
+                padding: 15px;
+                border-radius: 10px;
+                margin: 20px 0;
+                font-family: monospace;
+                color: #2d3748;
+            }
+            
+            .file-list {
+                margin-top: 30px;
+            }
+            
+            .file-item {
+                background: white;
+                border: 2px solid #e2e8f0;
+                border-radius: 12px;
+                padding: 15px;
+                margin-bottom: 15px;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                transition: all 0.3s ease;
+            }
+            
+            .file-item:hover {
+                border-color: #4299e1;
+                transform: translateY(-2px);
+                box-shadow: 0 10px 20px rgba(66, 153, 225, 0.2);
+            }
+            
+            .file-info {
+                flex-grow: 1;
+            }
+            
+            .file-name {
+                font-weight: 600;
+                color: #2d3748;
+                font-size: 1.1em;
+            }
+            
+            .file-meta {
+                color: #718096;
+                font-size: 0.9em;
+                margin-top: 5px;
+            }
+            
+            .download-btn {
+                background: linear-gradient(135deg, #4299e1, #3182ce);
+                color: white;
+                padding: 10px 20px;
+                border-radius: 8px;
+                text-decoration: none;
+                font-weight: 600;
+                transition: all 0.3s;
+                border: none;
+                cursor: pointer;
+                white-space: nowrap;
+            }
+            
+            .download-btn:hover {
+                background: linear-gradient(135deg, #3182ce, #2c5282);
+                transform: scale(1.05);
+            }
+            
+            .empty-state {
+                text-align: center;
+                padding: 40px;
+                color: #a0aec0;
+            }
+            
+            .refresh-btn {
+                background: #48bb78;
+                color: white;
+                padding: 10px 20px;
+                border-radius: 8px;
+                border: none;
+                cursor: pointer;
+                font-weight: 600;
+                margin-top: 20px;
+            }
+            
+            .header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 20px;
+            }
+            
+            .connected-count {
+                background: #4299e1;
+                color: white;
+                padding: 5px 15px;
+                border-radius: 20px;
+                font-weight: 600;
+            }
+            
+            @media (max-width: 600px) {
+                .container {
+                    padding: 15px;
+                }
+                
+                .file-item {
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+                
+                .download-btn {
+                    margin-top: 10px;
+                    align-self: flex-end;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="header">
+                <div>
+                    <h1>📱 Partage Local</h1>
+                    <p class="server-info" id="serverInfo">Chargement de l'adresse...</p>
+                </div>
+                <div class="connected-count" id="connectedCount">0 connecté(s)</div>
+            </div>
+            
+            <div class="file-list" id="fileList">
+                <!-- Les fichiers apparaîtront ici -->
+            </div>
+            
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <p>📭 Aucun fichier à partager pour le moment</p>
+                <p>Ajoute des fichiers dans le dossier "shared_content"</p>
+            </div>
+            
+            <div style="text-align: center; margin-top: 30px;">
+                <button class="refresh-btn" onclick="loadFiles()">
+                    🔄 Actualiser la liste
+                </button>
+            </div>
+        </div>
+        
+        <script>
+        let connectionCount = 0;
+        const connections = new Set();
+        
+        async function loadFiles() {
+            try {
+                const response = await fetch('/list-files');
+                const files = await response.json();
+                
+                const fileList = document.getElementById('fileList');
+                const emptyState = document.getElementById('emptyState');
+                
+                if (files.length === 0) {
+                    fileList.innerHTML = '';
+                    emptyState.style.display = 'block';
+                    return;
+                }
+                
+                emptyState.style.display = 'none';
+                fileList.innerHTML = '';
+                
+                files.forEach(file => {
+                    const fileItem = document.createElement('div');
+                    fileItem.className = 'file-item';
+                    
+                    fileItem.innerHTML = `
+                        <div class="file-info">
+                            <div class="file-name">📄 ${file.name}</div>
+                            <div class="file-meta">
+                                ${file.size_str} • ${file.type || 'Fichier'}
+                            </div>
+                        </div>
+                        <a href="/download/${encodeURIComponent(file.name)}" 
+                           class="download-btn" download>
+                            📥 Télécharger
+                        </a>
+                    `;
+                    
+                    fileList.appendChild(fileItem);
+                });
+                
+            } catch (error) {
+                console.error('Erreur:', error);
+                fileList.innerHTML = '<p style="color: #e53e3e;">❌ Erreur de chargement</p>';
+            }
+        }
+        
+        // Mettre à jour l'info serveur
+        function updateServerInfo() {
+            const serverInfo = document.getElementById('serverInfo');
+            const url = window.location.origin;
+            const ip = url.replace('http://', '');
+            serverInfo.textContent = `Adresse: ${ip}`;
+        }
+        
+        // Simuler des connexions (pour la démo)
+        function updateConnectionCount() {
+            connectionCount++;
+            connections.add(`user_${connectionCount}`);
+            document.getElementById('connectedCount').textContent = 
+                `${connections.size} connecté(s)`;
+            
+            // Simuler une déconnexion aléatoire
+            setTimeout(() => {
+                if (connections.size > 0) {
+                    const first = Array.from(connections)[0];
+                    connections.delete(first);
+                    document.getElementById('connectedCount').textContent = 
+                        `${connections.size} connecté(s)`;
+                }
+            }, 30000);
+        }
+        
+        // Au chargement
+        document.addEventListener('DOMContentLoaded', () => {
+            updateServerInfo();
+            loadFiles();
+            updateConnectionCount();
+            
+            // Actualiser toutes les 10 secondes
+            setInterval(loadFiles, 10000);
+            
+            // Simuler de nouvelles connexions
+            setInterval(updateConnectionCount, 15000);
+        });
+        
+        // Détecter les changements de visibilité (tab actif/inactif)
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                loadFiles();
+            }
+        });
+        </script>
+    </body>
+    </html>
+    
