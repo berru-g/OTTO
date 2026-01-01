@@ -100,8 +100,8 @@ class WelcomeRedirectHandler(BaseHTTPRequestHandler):
         </head>
         <body>
             <div class="card">
-                <h1>🔗 Connexion WiFi Détectée</h1>
-                <p>Vous êtes connecté au réseau local</p>
+                <h1>Bienvenue sur le réseau local</h1>
+                <p>Vous allez etre redirigé vers un logiciel à installer pour que nous puissions communiquer.</p>
                 
                 <div class="ip-display">
                     📍 IP: {client_ip}
@@ -109,7 +109,7 @@ class WelcomeRedirectHandler(BaseHTTPRequestHandler):
                 
                 <p>Redirection automatique vers la landing page...</p>
                 
-                <div class="countdown" id="countdown">3</div>
+                <div class="countdown" id="countdown">10</div>
                 
                 <a href="{LANDING_URL}" class="btn" id="redirectBtn">
                     Accéder maintenant →
@@ -122,7 +122,7 @@ class WelcomeRedirectHandler(BaseHTTPRequestHandler):
             
             <script>
             // Compte à rebours
-            let count = 1;
+            let count = 10;
             const countdownEl = document.getElementById('countdown');
             const btn = document.getElementById('redirectBtn');
             
@@ -156,7 +156,7 @@ if __name__ == "__main__":
     local_ip = socket.gethostbyname(socket.gethostname())
     
     print("="*60)
-    print("🎯 SERVEUR HYBRIDE - WELCOME + REDIRECTION")
+    print("SERVEUR LOCAL 80 + REDIRECTION")
     print("="*60)
     print(f"📡 Adresse locale: http://{local_ip}:{PORT}")
     print(f"🎯 Landing finale: {LANDING_URL}")
