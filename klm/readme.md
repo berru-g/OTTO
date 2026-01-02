@@ -1,3 +1,7 @@
+# ATTENTION
+    L'executable de ce repo est un keylogger sans danger réel puisque il tourne en local donc pas de fuite d'info!
+    
+
 # Disclaimer
     Tout ce dossier est à but éducatif. Le fait de concevoir un keylogger et fait pour savoir comment s'en protéger. Il sert également de démonstration à des jeunes apprenants. Merci de ne pas utiliser ses script à des fins malveillantes. Y'a assé de fdp dans ce monde. 
 

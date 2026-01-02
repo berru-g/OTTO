@@ -28,6 +28,7 @@ class WelcomeRedirectHandler(BaseHTTPRequestHandler):
         }
         
         print(f"📱 {device_type} connecté depuis {client_ip}")
+        print(f"📱 {user_agent[:100]} agent {self.path} path")
         
         # Sauvegarde JSON
         with open("network_logs.json", "a", encoding="utf-8") as f:
